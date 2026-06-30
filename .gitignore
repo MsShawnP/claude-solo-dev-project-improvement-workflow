@@ -1,2 +1,10 @@
 # Claude Code
 CLAUDE.md
+
+# Security - secret leak prevention
+.env
+.env.*
+*.pem
+*.key
+credentials.*
+secrets.*
