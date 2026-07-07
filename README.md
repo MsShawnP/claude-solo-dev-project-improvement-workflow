@@ -1,6 +1,8 @@
-# Solo-Dev Project Improvement Workflow
+# Solo-Dev Project Improvement Workflow — audit and improve existing projects with Claude Code
 
-A Claude Code workflow for auditing and improving existing projects. Run `/improve` on any deployed project to get a structured health check, prioritized findings, and guided fixes.
+A Claude Code workflow for auditing and improving existing projects. Run
+`/improve` on any deployed project to get a structured health check,
+prioritized findings, and guided fixes.
 
 ## What it does
 
@@ -22,46 +24,49 @@ A Claude Code workflow for auditing and improving existing projects. Run `/impro
 | `/improve [topic]` | Focus on a specific area |
 | `/add-workflow` | Retrofit workflow files onto an existing project |
 
-## Requirements
+## Quick start
 
-These plugins/skills are used by `/improve` for deeper reviews. Install them for full coverage — the workflow still runs without them, just skips those reviews.
+Option A — run the installer (backs up existing files before overwriting):
 
-- **compound-engineering plugin** — provides `/ce:review` (multi-reviewer code quality)
-- **gstack** — provides `/qa` (browser testing) and `/security-review`
-
-Install via Claude Code:
-```
-/plugin install github.com/EveryInc/compound-engineering-plugin
-/plugin install github.com/garrytan/gstack
+```powershell
+.\install.ps1          # install to ~/.claude/commands/
+.\install.ps1 -DryRun  # preview without changes
 ```
 
-## Install
-
-### Option A: Copy commands directly
+Option B — copy the command files directly:
 
 ```powershell
 Copy-Item .\commands\improve.md $env:USERPROFILE\.claude\commands\improve.md
 Copy-Item .\commands\add-workflow.md $env:USERPROFILE\.claude\commands\add-workflow.md
 ```
 
-### Option B: Run the installer
+### Optional plugins for deeper reviews
 
-```powershell
-.\install.ps1        # install
-.\install.ps1 -DryRun  # preview without changes
+`/improve` uses these for its automated review passes. The workflow still
+runs without them — it just skips those reviews.
+
+- **compound-engineering plugin** — provides `/ce:review` (multi-reviewer code quality)
+- **gstack** — provides `/qa` (browser testing) and `/security-review`
+
+```
+/plugin install github.com/EveryInc/compound-engineering-plugin
+/plugin install github.com/garrytan/gstack
 ```
 
-The installer backs up any existing files before overwriting.
+## Tech stack
 
-## Templates
+- Claude Code slash commands — plain Markdown prompt files in `commands/`
+- PowerShell installer (`install.ps1`) with `-DryRun` and `-Force` switches
+- No runtime dependencies beyond Claude Code itself
 
-The `templates/` directory contains the workflow state files that `/add-workflow` deploys into projects:
+## Project structure
 
-- `CLAUDE.md` — project context and rules
-- `PLAN.md` — current work arc + improvement history
-- `HANDOFF.md` — session-to-session continuity
-- `DECISIONS.md` — durable choices log
-- `FAILURES.md` — what didn't work and why
+- `commands/improve.md`, `commands/add-workflow.md` — the two slash commands
+- `templates/` — workflow state files that `/add-workflow` deploys into projects:
+  `CLAUDE.md` (project context and rules), `PLAN.md` (current work arc +
+  improvement history), `HANDOFF.md` (session-to-session continuity),
+  `DECISIONS.md` (durable choices log), `FAILURES.md` (what didn't work and why)
+- `install.ps1` — installer
 
 ## How it fits together
 
@@ -94,8 +99,9 @@ You run /improve on a project
 
 ## Origin
 
-Built by Shawn Phillips for solo portfolio and consulting work. Runs on any project — data analysis, web apps, APIs, reports.
+Built by Shawn Phillips for solo portfolio and consulting work. Runs on any
+project — data analysis, web apps, APIs, reports.
 
 ## License
 
-MIT
+MIT — see [LICENSE](LICENSE).
