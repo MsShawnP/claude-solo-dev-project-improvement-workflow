@@ -18,7 +18,7 @@ function Info($msg) { Write-Host "    $msg" -ForegroundColor Gray }
 function Warn($msg) { Write-Host "    ! $msg" -ForegroundColor Yellow }
 
 Write-Host ""
-Write-Host "Project Improvement Workflow — Installer" -ForegroundColor Green
+Write-Host "Project Improvement Workflow - Installer" -ForegroundColor Green
 Write-Host "========================================="
 if ($DryRun) { Write-Host "MODE: dry-run (no changes)" -ForegroundColor Yellow }
 Write-Host ""
@@ -58,14 +58,14 @@ foreach ($c in $commands) {
 
     if (Test-Path $dst) {
         if (-not $Force) {
-            Warn "$c already exists — skipping (use -Force to overwrite)"
+            Warn "$c already exists - skipping (use -Force to overwrite)"
             continue
         }
         # Backup existing
         $backup = "$dst.bak-$(Get-Date -Format 'yyyyMMdd-HHmmss')"
         if (-not $DryRun) {
             Copy-Item -Path $dst -Destination $backup -Force
-            Info "Backed up existing $c → $(Split-Path $backup -Leaf)"
+            Info "Backed up existing $c -> $(Split-Path $backup -Leaf)"
         } else {
             Info "[dry-run] would backup $c"
         }
@@ -83,8 +83,8 @@ foreach ($c in $commands) {
 Step "Done"
 Write-Host ""
 Write-Host "Installed commands:" -ForegroundColor Green
-Write-Host "  /improve         — audit and improve any project" -ForegroundColor White
-Write-Host "  /add-workflow    — add workflow files to existing project" -ForegroundColor White
+Write-Host "  /improve         - audit and improve any project" -ForegroundColor White
+Write-Host "  /add-workflow    - add workflow files to existing project" -ForegroundColor White
 Write-Host ""
 Write-Host "Optional plugins for deeper reviews:" -ForegroundColor Gray
 Write-Host "  /plugin install github.com/EveryInc/compound-engineering-plugin" -ForegroundColor Gray
